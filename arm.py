@@ -36,6 +36,9 @@ def sendAngles(j1,j2,j3,j5,j6):
 	J1_ULMT = 150
 	J1_LLMT = -150
 	angles = [j1,j2,j3,j5,j6]
+	for a in angles:
+		if a > J1_ULMT:   a = J1_ULMT
+		elif a < J1_ULMT: a = J1_LLMT
 
 	s = ",".join([str(x) for x in angles]) + '\r'
 	uart.write(s)
