@@ -24,45 +24,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
-import os,cgi
-import sys,time
-import struct
-import wiringpi2 as wp
-
-class Manipulator:
-	def __init__(self):
-		pass
-
-	def sendAngles(self,angles):
-	
-		J1_ULMT = 150
-		J1_LLMT = -150
-		angles = [ a if a < J1_ULMT else J1_ULMT for a in angles ]
-		angles = [ a if a > J1_LLMT else J1_LLMT for a in angles ]
-	
-		s = [str(a) for a in angles ]
-		s = ['0' + a if len(a) == 1 else a for a in s ]
-		s = ",".join(s) + '\r'
-	
-		try:
-			with open('/dev/ttyUSB0',"wb") as uart:
-				uart.write(s)
-	
-			print s + " OK" 
-		except:
-			print s + " NG: check permission of /dev/ttyUSB0"
 
 if __name__ == '__main__':
-	form = cgi.FieldStorage()
-	manip = Manipulator()
-
 	http_header = "Content-type: text/html\n\n"
-	print http_header
+	print http_header,
 
-	if form.has_key("angles"):
-		values = form["angles"].value.split(',')
-		values = [ int(x) for x in values ]
-		manip.sendAngles(values)
-	else:
-		print "GET ERROR"
-
+	try:
+		with open("/run/shm/adconv_values","r") as f:
+			print f.readline(),
+	except:
+		print "ADCONV READ ERROR"

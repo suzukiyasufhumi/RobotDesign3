@@ -26,7 +26,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-import time
+import time, os
 import wiringpi2 as wp
 
 class ADConv:
@@ -40,8 +40,12 @@ class ADConv:
 		return wp.analogRead(ADConv.PIN_BASE+ch)
 
 if __name__ == '__main__':
-	da = ADConv()
+	ad = ADConv()
 	while True:
-		print da.read_da(0)
+		with open("/run/shm/adconv_values.tmp","w") as f:
+			ans = str(ad.read_da(0)) + " " + str(ad.read_da(1)) + "\n"
+			f.write(ans)
+		
+		os.rename("/run/shm/adconv_values.tmp","/run/shm/adconv_values")
 		time.sleep(0.1)
 	

@@ -1,0 +1,3 @@
+# セットアップ
+
+	sudo ./setup.bash

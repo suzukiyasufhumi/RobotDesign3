@@ -6,7 +6,24 @@
 	<script src="main.js"></script>
 	<link rel="stylesheet" type="text/css" href="main.css"></link>
 </head>
-<body>
+<body onload="readAd()">
+	<h1>ADコンバータ</h1>
+	<table>
+		<tr>
+			<th>CH</th>
+			<th>値</th>
+		</tr>
+		<tr>
+			<td>CH0</td>
+			<td id="ch0_value"></td>
+		</tr>
+		<tr>
+			<td>CH1</td>
+			<td id="ch1_value"></td>
+		</tr>
+	</table>
+	<hr />
+	<h1>マニピュレータ</h1>
 	<table>
 		<tr>
 			<th>関節</th>

@@ -24,3 +24,19 @@ function numToSlide(obj){
 	target = obj.id.replace(/value/,"");
 	document.getElementById(target).value = obj.value;
 }
+
+function readAd(){
+	var httpReq = new XMLHttpRequest();
+	httpReq.onreadystatechange = function(){
+		if(httpReq.readyState != 4 || httpReq.status != 200)
+			return;
+
+		vs = httpReq.responseText.split(" ");
+		document.getElementById("ch0_value").innerHTML = vs[0];
+		document.getElementById("ch1_value").innerHTML = vs[1];
+		readAd();
+	}
+	var url = "/sendAdValues.ajax.py? + Math.random()"
+	httpReq.open("GET",url,true);
+	httpReq.send(null);
+}
