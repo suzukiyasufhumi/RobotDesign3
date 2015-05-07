@@ -1,2 +1,9 @@
 .anglebox { width:30px }
 h1 {font-size: 120%}
+
+#angles_log {
+	overflow:auto;
+	width:500px; height:200px;
+	padding:5px;
+	padding-left:20px;
+}

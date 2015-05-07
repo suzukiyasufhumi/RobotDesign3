@@ -4,8 +4,8 @@ function sendAngles(){
 		if(httpReq.readyState != 4 || httpReq.status != 200)
 			return;
 
-		document.getElementById("debug").innerHTML += httpReq.responseText;
-		document.getElementById("debug").innerHTML += '<br />';
+		org = document.getElementById("angles_log").innerHTML;
+		document.getElementById("angles_log").innerHTML = httpReq.responseText + "<br />" + org; 
 	}
 	//var url = "/ajax/last_articles.cgi?num=" + num;
 	var url = "/sendAngles.ajax.py?angles="

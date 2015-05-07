@@ -50,7 +50,7 @@ class Manipulator:
 	
 			print s + " OK" 
 		except:
-			print s + " NG: check permission of /dev/ttyUSB0"
+			print s + " NG: /dev/ttyUSB0 unavailable"
 
 if __name__ == '__main__':
 	form = cgi.FieldStorage()
