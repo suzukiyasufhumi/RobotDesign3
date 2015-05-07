@@ -1,4 +1,5 @@
-function sendAngles(){
+function sendAngles()
+{
 	var httpReq = new XMLHttpRequest();
 	httpReq.onreadystatechange = function(){
 		if(httpReq.readyState != 4 || httpReq.status != 200)
@@ -20,7 +21,8 @@ function sendAngles(){
 	httpReq.send(null);
 }
 
-function numToSlide(obj){
+function numToSlide(obj)
+{
 	target = obj.id.replace(/value/,"");
 	document.getElementById(target).value = obj.value;
 }
@@ -41,7 +43,8 @@ function readAd(){
 	httpReq.send(null);
 }
 
-function ev(val){
+function ev(val)
+{
 	var httpReq = new XMLHttpRequest();
 	httpReq.onreadystatechange = function(){
 		if(httpReq.readyState != 4 || httpReq.status != 200)
@@ -51,4 +54,10 @@ function ev(val){
 	url = "/ev.py?onoff=" + val;
 	httpReq.open("GET",url,true);
 	httpReq.send(null);
+}
+
+function init()
+{
+	readAd();
+	drawRobot();
 }

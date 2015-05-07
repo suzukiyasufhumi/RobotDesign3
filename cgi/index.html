@@ -3,10 +3,12 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>ロボットGUI</title>
+	<script src="three.min.js"></script>
+	<script src="simulator.js"></script>
 	<script src="main.js"></script>
 	<link rel="stylesheet" type="text/css" href="main.css"></link>
 </head>
-<body onload="readAd()">
+<body onload="init()">
 	<div style="float:left">
 		<h1>ADコンバータ</h1>
 		<table>
@@ -99,5 +101,8 @@
 		</table>
 	</div>
 	<div id="angles_log"></div>
+
+	<h1>シミュレータ</h1>
+	<div id="canvas"></div>
 </body>
 </html>
