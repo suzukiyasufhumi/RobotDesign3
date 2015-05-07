@@ -61,6 +61,19 @@ class RobotIO:
 		except:
 			print s + " NG: /dev/ttyUSB0 unavailable"
 
+def parse_angles(f):
+	# 最初の行を読む
+	for line in f:
+		values = line.split(',')
+		values = [ int(x) for x in values ]
+		if len(values) == 5:
+			rio.send_angles(values)
+		elif len(values) == 6:
+			rio.send_angles(values[0:4])
+			time.sleep(values[5]/1000.0)
+		else:
+			print "NG"
+
 if __name__ == '__main__':
 	rio = RobotIO()
 	while True:
@@ -79,9 +92,7 @@ if __name__ == '__main__':
 
 		try:
 			with open("/run/shm/angles","r") as f:
-				values = f.readline().split(',')
-				values = [ int(x) for x in values ]
-				rio.send_angles(values)
+				parse_angles(f)
 
 			os.remove("/run/shm/angles")
 		except:

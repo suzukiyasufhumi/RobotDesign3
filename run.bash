@@ -3,6 +3,9 @@
 ###スティッキービットの解除###
 sudo chmod o-t /run/shm/
 
+###nkfのインストール###
+sudo apt-get install nkf
+
 ###マニピュレータの書き込みOKに###
 sudo chmod 777 /dev/ttyUSB0
 
