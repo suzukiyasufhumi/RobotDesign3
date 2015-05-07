@@ -45,7 +45,7 @@
 						J1
 					</td>
 					<td>
-						<input type="range" id="J1" onchange="sendAngles()" value="0" min="-150" max="150">
+						<input type="range" id="J1" onchange="onChangeRange()" value="0" min="-150" max="150">
 					</td>
 					<td>
 						<input type="number" id="J1value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
@@ -56,7 +56,7 @@
 						J2
 					</td>
 					<td>
-						<input type="range" id="J2" onchange="sendAngles()" value="0" min="-150" max="150">
+						<input type="range" id="J2" onchange="onChangeRange()" value="0" min="-150" max="150">
 					</td>
 					<td>
 						<input type="number" id="J2value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
@@ -67,7 +67,7 @@
 						J3
 					</td>
 					<td>
-						<input type="range" id="J3" onchange="sendAngles()" value="0" min="-150" max="150">
+						<input type="range" id="J3" onchange="onChangeRange()" value="0" min="-150" max="150">
 					</td>
 					<td>
 						<input type="number" id="J3value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
@@ -78,7 +78,7 @@
 						J5
 					</td>
 					<td>
-						<input type="range" id="J5" onchange="sendAngles()" value="0" min="-150" max="150">
+						<input type="range" id="J5" onchange="onChangeRange()" value="0" min="-150" max="150">
 					</td>
 					<td>
 						<input type="number" id="J5value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
@@ -89,7 +89,7 @@
 						J6
 					</td>
 					<td>
-						<input type="range" id="J6" onchange="sendAngles()" value="0" min="-150" max="150">
+						<input type="range" id="J6" onchange="onChangeRange()" value="0" min="-150" max="150">
 					</td>
 					<td>
 						<input type="number" id="J6value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
@@ -111,22 +111,22 @@
 		<h1>シミュレータ</h1>
 関節角5個と時間をカンマ区切りで入力のこと。<br />
 		<textarea rows="12" cols="40" id="sequence">
-20,20,20,20,20,200
-20,-20,20,20,20,200
-20,20,20,-20,20,200
-20,-20,20,80,20,200
-20,20,20,20,20,200
-20,-20,20,20,20,200
-20,20,20,-20,20,200
-20,-20,20,80,20,200
-20,20,20,20,20,200
-20,-20,20,20,20,200
-20,20,20,-20,20,200
-20,-20,20,80,20,200
-20,20,20,20,20,200
-20,-20,20,20,20,200
-20,20,20,-20,20,200
-20,-20,20,80,20,200
+20,20,20,20,20,2000
+20,-20,20,20,20,2000
+20,20,20,-20,20,2000
+20,-20,20,80,20,2000
+20,20,20,20,20,2000
+20,-20,20,20,20,2000
+20,20,20,-20,20,2000
+20,-20,20,80,20,2000
+20,20,20,20,20,2000
+20,-20,20,20,20,2000
+20,20,20,-20,20,2000
+20,-20,20,80,20,2000
+20,20,20,20,20,2000
+20,-20,20,20,20,2000
+20,20,20,-20,20,2000
+20,-20,20,80,20,2000
 </textarea>
 		<button type="button" id="run" onclick="run()">RUN</button>
 		<button type="button" onclick="location.reload()">CLEAR</button>

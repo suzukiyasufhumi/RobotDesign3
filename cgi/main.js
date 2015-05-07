@@ -1,3 +1,37 @@
+function onChangeRange()
+{
+	rangeToText();
+	sendAngles();
+}
+
+function rangeToText()
+{
+	var j = 0; //シミュレータの配列に角度を入れるためのカウンタ
+	for (i=1;i<=6;i++){
+		if(i==4)
+			continue;
+
+		angle = document.getElementById("J" + i).value;
+		angles[j] = angle;
+		j++;
+		document.getElementById("J" + i + "value").value = angle;
+	}
+}
+
+function setAngles()
+{
+	var j = 0; //シミュレータの配列に角度を入れるためのカウンタ
+	for (i=1;i<=6;i++){
+		if(i==4)
+			continue;
+
+		angle = document.getElementById("J" + i).value;
+		angles[j] = angle;
+		j++;
+		document.getElementById("J" + i + "value").value = angle;
+	}
+}
+
 function sendAngles()
 {
 	var httpReq = new XMLHttpRequest();
@@ -15,11 +49,11 @@ function sendAngles()
 		if(i==4)
 			continue;
 
-		angle = document.getElementById("J" + i).value;
-		angles[j] = angle;
+	//	angle = document.getElementById("J" + i).value;
+	//	angles[j] = angle;
+		url += angles[j] + ',';
 		j++;
-		url += angle + ',';
-		document.getElementById("J" + i + "value").value = angle;
+//		document.getElementById("J" + i + "value").value = angle;
 	}
 	url = url.replace(/,$/,"");
 	httpReq.open("GET",url,true);
@@ -92,6 +126,7 @@ function oneStep(as)
 
 		document.getElementById("J" + k + "value").value = angles[j++];
 	}
+	sendAngles();
 }
 
 function init()
