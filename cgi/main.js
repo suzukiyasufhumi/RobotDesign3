@@ -8,7 +8,7 @@ function sendAngles(){
 		document.getElementById("angles_log").innerHTML = httpReq.responseText + "<br />" + org; 
 	}
 	//var url = "/ajax/last_articles.cgi?num=" + num;
-	var url = "/sendAngles.ajax.py?angles="
+	var url = "/angles.py?angles="
 	for (i=1;i<=6;i++){
 		if(i==4)continue;
 		angle = document.getElementById("J" + i).value;
@@ -36,7 +36,19 @@ function readAd(){
 		document.getElementById("ch1_value").innerHTML = vs[1];
 		readAd();
 	}
-	var url = "/sendAdValues.ajax.py? + Math.random()"
+	var url = "/ad.py? + Math.random()"
+	httpReq.open("GET",url,true);
+	httpReq.send(null);
+}
+
+function ev(val){
+	var httpReq = new XMLHttpRequest();
+	httpReq.onreadystatechange = function(){
+		if(httpReq.readyState != 4 || httpReq.status != 200)
+			return;
+
+	}
+	url = "/ev.py?onoff=" + val;
 	httpReq.open("GET",url,true);
 	httpReq.send(null);
 }
