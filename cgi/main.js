@@ -18,6 +18,7 @@ function rangeToText()
 	}
 }
 
+/*
 function setAngles()
 {
 	var j = 0; //シミュレータの配列に角度を入れるためのカウンタ
@@ -31,8 +32,8 @@ function setAngles()
 		document.getElementById("J" + i + "value").value = angle;
 	}
 }
+*/
 
-/*
 function sendAngles()
 {
 	if(window.location.href.substr(0,4) == "file")
@@ -63,7 +64,6 @@ function sendAngles()
 	httpReq.open("GET",url,true);
 	httpReq.send(null);
 }
-*/
 
 function numToSlide(obj)
 {
