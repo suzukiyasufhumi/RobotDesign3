@@ -29,7 +29,6 @@ import sys,time
 import struct
 
 def sendAngles(angles):
-	uart = open('/dev/ttyUSB0',"wb")
 
 	J1_ULMT = 150
 	J1_LLMT = -150
@@ -39,7 +38,14 @@ def sendAngles(angles):
 	s = [str(a) for a in angles ]
 	s = ['0' + a if len(a) == 1 else a for a in s ]
 	s = ",".join(s) + '\r'
-	uart.write(s)
+
+	try:
+		with open('/dev/ttyUSB0',"wb") as uart:
+			uart.write(s)
+
+		print s + " OK" 
+	except:
+		print s + " NG: check permission of /dev/ttyUSB0"
 
 if __name__ == '__main__':
 	form = cgi.FieldStorage()
@@ -51,4 +57,5 @@ if __name__ == '__main__':
 		values = form["angles"].value.split(',')
 		values = [ int(x) for x in values ]
 		sendAngles(values)
-		print "ok"
+	else:
+		print "GET ERROR"

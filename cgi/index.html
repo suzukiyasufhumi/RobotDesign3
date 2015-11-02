@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>ロボットGUI</title>
+	<script src="main.js"></script>
+	<link rel="stylesheet" type="text/css" href="main.css"></link>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>関節</th>
+			<th>角度</th>
+		</tr>
+		<tr>
+			<td>
+				J1
+			</td>
+			<td>
+				<input type="range" id="J1" onchange="sendAngles()" value="0" min="-150" max="150">
+			</td>
+			<td>
+				<input type="number" id="J1value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				J2
+			</td>
+			<td>
+				<input type="range" id="J2" onchange="sendAngles()" value="0" min="-150" max="150">
+			</td>
+			<td>
+				<input type="number" id="J2value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				J3
+			</td>
+			<td>
+				<input type="range" id="J3" onchange="sendAngles()" value="0" min="-150" max="150">
+			</td>
+			<td>
+				<input type="number" id="J3value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				J5
+			</td>
+			<td>
+				<input type="range" id="J5" onchange="sendAngles()" value="0" min="-150" max="150">
+			</td>
+			<td>
+				<input type="number" id="J5value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				J6
+			</td>
+			<td>
+				<input type="range" id="J6" onchange="sendAngles()" value="0" min="-150" max="150">
+			</td>
+			<td>
+				<input type="number" id="J6value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+			</td>
+		</tr>
+	</table>
+	<button onclick="sendAngles()">送信</button>
+
+	<p id="debug"></p>
+</body>
+</html>
