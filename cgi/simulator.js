@@ -1,8 +1,3 @@
-function resolvePose(links,angles)
-{
-	links[2].rotation.x = angles[1];
-}
-
 function drawRobot()
 {
 	var scene = new THREE.Scene();
@@ -127,12 +122,10 @@ function drawRobot()
 
 	var render = function () {
 		requestAnimationFrame(render);
-//		angles = [0.0,45.0,0.0,0.0,0.0];
 		joints[3].rotation.x += 0.01;
 		joints[2].rotation.x += 0.01;
 		joints[1].rotation.x += 0.01;
 		joints[0].rotation.y += 0.01;
-//		resolvePose(links,angles);
 		renderer.render(scene, camera);
 	};
 	render();
