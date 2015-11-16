@@ -6,7 +6,7 @@ function resolvePose(links,angles)
 function drawRobot()
 {
 	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+	var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
 	camera.position.y = 500;
  
 	var renderer = new THREE.WebGLRenderer();
@@ -17,6 +17,9 @@ function drawRobot()
 	/* リンクの情報 */
 	//////////////////
 	var links = new Array(6);
+	var joints = new Array(6);
+	var pivots_link = new Array(6);
+	var pivots_joint = new Array(6);
 	var h = new Array(6);
 
 	/* LINK 1 */
@@ -26,10 +29,21 @@ function drawRobot()
 	geometry = new THREE.CylinderGeometry(r,r,h[0],20,0,false);
 	material = new THREE.MeshBasicMaterial({color: 0x999999});
 	links[0] = new THREE.Mesh(geometry, material);
-	links[0].position.x = 0.0;
-	links[0].position.y = h[0]/2;
-	links[0].position.z = -1000.0;
+	links[0].position.set(0.0,h[0]/2,-1200.0);
 	scene.add(links[0]);
+
+	pivots_link[0] = new THREE.Object3D();
+	links[0].add(pivots_link[0]);
+
+	/*JOINT 1*/
+	geometry = new THREE.CylinderGeometry(5.0,5.0,5.0,20,0,false);
+	material = new THREE.MeshBasicMaterial({color: 0xff0000});
+	joints[0] = new THREE.Mesh(geometry, material);
+	joints[0].position.set(0.0,h[0]/2,0.0);
+	pivots_link[0].add(joints[0]);
+	
+	pivots_joint[0] = new THREE.Object3D();
+	joints[0].add(pivots_joint[0]);
 
 	/* LINK 2 */
 	r = 116.0/2;
@@ -38,9 +52,22 @@ function drawRobot()
 	material = new THREE.MeshBasicMaterial({color: 0xaaaaaa});
 	links[1] = new THREE.Mesh(geometry, material);
 	links[1].position.x = 0.0;
-	links[1].position.y = h[0] + h[1]/2;
-	links[1].position.z = -1000.0;
-	scene.add(links[1]);
+	links[1].position.y = h[1]/2;
+	links[1].position.z = 0.0;
+	pivots_joint[0].add(links[1]);
+
+	pivots_link[1] = new THREE.Object3D();
+	links[1].add(pivots_link[1]);
+
+	/*JOINT 2*/
+	geometry = new THREE.CylinderGeometry(5.0,5.0,5.0,20,0,false);
+	material = new THREE.MeshBasicMaterial({color: 0xff0000});
+	joints[1] = new THREE.Mesh(geometry, material);
+	joints[1].position.set(0.0,h[1]/2,0.0);
+	pivots_link[1].add(joints[1]);
+	
+	pivots_joint[1] = new THREE.Object3D();
+	joints[1].add(pivots_joint[1]);
 
 	/* LINK 3 */
 	r = 160.0/2;
@@ -49,9 +76,21 @@ function drawRobot()
 	material = new THREE.MeshBasicMaterial({color: 0xbbbbbb});
 	links[2] = new THREE.Mesh(geometry, material);
 	links[2].position.x = 0.0;
-	links[2].position.y = h[0] + h[1] + h[2]/2;
-	links[2].position.z = -1000.0;
-	scene.add(links[2]);
+	links[2].position.y = h[2]/2;
+	pivots_joint[1].add(links[2]);
+
+	pivots_link[2] = new THREE.Object3D();
+	links[2].add(pivots_link[2]);
+
+	/*JOINT 3*/
+	geometry = new THREE.CylinderGeometry(5.0,5.0,5.0,20,0,false);
+	material = new THREE.MeshBasicMaterial({color: 0xff0000});
+	joints[2] = new THREE.Mesh(geometry, material);
+	joints[2].position.set(0.0,h[2]/2,0.0);
+	pivots_link[2].add(joints[2]);
+	
+	pivots_joint[2] = new THREE.Object3D();
+	joints[2].add(pivots_joint[2]);
 
 	/* LINK 4 */
 	r = 116.0/2;
@@ -60,9 +99,21 @@ function drawRobot()
 	material = new THREE.MeshBasicMaterial({color: 0xcccccc});
 	links[3] = new THREE.Mesh(geometry, material);
 	links[3].position.x = 0.0;
-	links[3].position.y = h[0] + h[1] + h[2] + h[3]/2;
-	links[3].position.z = -1000.0;
-	scene.add(links[3]);
+	links[3].position.y = h[3]/2;
+	pivots_joint[2].add(links[3]);
+
+	pivots_link[3] = new THREE.Object3D();
+	links[3].add(pivots_link[3]);
+
+	/*JOINT 4*/
+	geometry = new THREE.CylinderGeometry(5.0,5.0,5.0,20,0,false);
+	material = new THREE.MeshBasicMaterial({color: 0xff0000});
+	joints[3] = new THREE.Mesh(geometry, material);
+	joints[3].position.set(0.0,h[3]/2,0.0);
+	pivots_link[3].add(joints[3]);
+	
+	pivots_joint[3] = new THREE.Object3D();
+	joints[3].add(pivots_joint[3]);
 
 	/* LINK 5 */
 	r = 80.0/2;
@@ -71,14 +122,17 @@ function drawRobot()
 	material = new THREE.MeshBasicMaterial({color: 0xdddddd});
 	links[4] = new THREE.Mesh(geometry, material);
 	links[4].position.x = 0.0;
-	links[4].position.y = h[0] + h[1] + h[2] + h[3] + h[4]/2;
-	links[4].position.z = -1000.0;
-	scene.add(links[4]);
+	links[4].position.y = h[4]/2;
+	pivots_joint[3].add(links[4]);
 
 	var render = function () {
 		requestAnimationFrame(render);
-		angles = [0.0,45.0,0.0,0.0,0.0];
-		resolvePose(links,angles);
+//		angles = [0.0,45.0,0.0,0.0,0.0];
+		joints[3].rotation.x += 0.01;
+		joints[2].rotation.x += 0.01;
+		joints[1].rotation.x += 0.01;
+		joints[0].rotation.y += 0.01;
+//		resolvePose(links,angles);
 		renderer.render(scene, camera);
 	};
 	render();
