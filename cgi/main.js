@@ -10,9 +10,12 @@ function sendAngles()
 	}
 	//var url = "/ajax/last_articles.cgi?num=" + num;
 	var url = "/angles.py?angles="
+	var j = 0; //シミュレータの配列に角度を入れるためのカウンタ
 	for (i=1;i<=6;i++){
 		if(i==4)continue;
 		angle = document.getElementById("J" + i).value;
+		angles[j] = angle;
+		j++;
 		url += angle + ',';
 		document.getElementById("J" + i + "value").value = angle;
 	}
@@ -25,6 +28,7 @@ function numToSlide(obj)
 {
 	target = obj.id.replace(/value/,"");
 	document.getElementById(target).value = obj.value;
+	sendAngles();
 }
 
 function readAd(){
