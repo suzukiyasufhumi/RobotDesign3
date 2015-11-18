@@ -98,10 +98,13 @@
 			</table>
 		</div>
 	</div>
-	<div id="angles_log" style="float:left;padding-left:30px"></div>
-	<div style="clear:both">
+	<div id="angles_log" style="float:left;padding-left:30px;width:200px"></div>
+	<div style="float:left">
 		<h1>シミュレータ</h1>
-		<div id="canvas"></div>
+		<textarea name="program" rows="12" cols="40" id="program">ここにプログラムをコピペしてください。</textarea>
+		<button type="button" id="run" onclick="run('program')">RUN</button>
+		<button type="button" onclick="document.getElementById('program').innerHTML=''">CLEAR</button>
 	</div>
 </body>
+	<div id="canvas"></div>
 </html>
