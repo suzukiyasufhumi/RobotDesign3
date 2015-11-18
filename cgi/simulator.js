@@ -1,4 +1,5 @@
 var angles = [0,0,0,0,0,0];
+var program = "";
 
 function drawRobot()
 {
@@ -143,4 +144,10 @@ function drawRobot()
 		renderer.render(scene, camera);
 	};
 	render();
+}
+
+function run()
+{
+	program = document.getElementById("program").value;
+	eval(program);
 }

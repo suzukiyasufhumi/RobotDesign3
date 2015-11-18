@@ -101,8 +101,13 @@
 	<div id="angles_log" style="float:left;padding-left:30px;width:200px"></div>
 	<div style="float:left">
 		<h1>シミュレータ</h1>
-		<textarea name="program" rows="12" cols="40" id="program">ここにプログラムをコピペしてください。</textarea>
-		<button type="button" id="run" onclick="run('program')">RUN</button>
+		<textarea rows="12" cols="40" id="program">
+( function loop(){
+    requestAnimationFrame( loop );
+    angles[0] += 0.1;
+    angles[1] += 0.1;
+} )();</textarea>
+		<button type="button" id="run" onclick="run()">RUN</button>
 		<button type="button" onclick="document.getElementById('program').innerHTML=''">CLEAR</button>
 	</div>
 </body>
