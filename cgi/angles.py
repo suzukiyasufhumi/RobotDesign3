@@ -27,43 +27,17 @@ SOFTWARE.
 import os,cgi
 import sys,time
 import struct
-import wiringpi2 as wp
-
-class Manipulator:
-	def __init__(self):
-		pass
-
-	def sendAngles(self,angles):
-	
-		J1_ULMT = 150
-		J1_LLMT = -150
-		angles = [ a if a < J1_ULMT else J1_ULMT for a in angles ]
-		angles = [ a if a > J1_LLMT else J1_LLMT for a in angles ]
-	
-		s = [str(a) for a in angles ]
-		s = ['0' + a if len(a) == 1 else a for a in s ]
-		s = ",".join(s) + '\r'
-	
-		try:
-			with open('/dev/ttyUSB0',"wb") as uart:
-				uart.write(s)
-	
-			print s + " OK" 
-		except:
-			print s + " NG: /dev/ttyUSB0 unavailable"
 
 if __name__ == '__main__':
 	form = cgi.FieldStorage()
-	manip = Manipulator()
 
 	http_header = "Content-type: text/html\n\n"
 	print http_header
 
 	if form.has_key("angles"):
-		values = form["angles"].value.split(',')
-		values = [ int(x) for x in values ]
-		manip.sendAngles(values)
-		#XXX これをファイル経由にする
+		with open("/run/shm/angles","w") as f:
+			f.write(form["angles"].value)
+			os.chmod("/run/shm/angles",0777)
 	else:
 		print "GET ERROR"
 

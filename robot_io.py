@@ -43,6 +43,37 @@ class RobotIO:
 	def write_ev(self,value):
 		wp.digitalWrite(RobotIO.EV_PIN,value)
 
+	def send_angles(self,angles):
+    
+		J1_ULMT = 150 
+		J1_LLMT = -150
+		angles = [ a if a < J1_ULMT else J1_ULMT for a in angles ]
+		angles = [ a if a > J1_LLMT else J1_LLMT for a in angles ]
+    
+		s = [str(a) for a in angles ]
+		s = ['0' + a if len(a) == 1 else a for a in s ] 
+		s = ",".join(s) + '\r'
+    
+		try:
+			with open('/dev/ttyUSB0',"wb") as uart:
+				print "manipulator: ", s
+				uart.write(s)
+		except:
+			print s + " NG: /dev/ttyUSB0 unavailable"
+
+def parse_angles(f):
+	# 最初の行を読む
+	for line in f:
+		values = line.split(',')
+		values = [ int(x) for x in values ]
+		if len(values) == 5:
+			rio.send_angles(values)
+		elif len(values) == 6:
+			rio.send_angles(values[0:4])
+			time.sleep(values[5]/1000.0)
+		else:
+			print "NG"
+
 if __name__ == '__main__':
 	rio = RobotIO()
 	while True:
@@ -58,7 +89,13 @@ if __name__ == '__main__':
 				rio.write_io(v)
 		except:
 			pass
-			
 
+		try:
+			with open("/run/shm/angles","r") as f:
+				parse_angles(f)
+
+			os.remove("/run/shm/angles")
+		except:
+			pass
+			
 		time.sleep(0.1)
-	

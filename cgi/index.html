@@ -100,6 +100,14 @@
 	</div>
 	<div id="angles_log" style="float:left;padding-left:30px;width:200px"></div>
 	<div style="float:left">
+		<h1>プログラム</h1>
+		<form action="/up_and_run.bash" method="post" enctype="multipart/form-data" target="upload_frame">
+			<input type="file" name="code" />
+			<button type="submit" />
+		</form>
+		<iframe name="upload_frame" style="display:none;"></iframe>
+	</div>
+	<div style="float:left">
 		<h1>シミュレータ</h1>
 		<textarea rows="12" cols="40" id="program">
 angles[0] += 0.1;
