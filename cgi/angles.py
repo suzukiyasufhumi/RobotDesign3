@@ -63,6 +63,7 @@ if __name__ == '__main__':
 		values = form["angles"].value.split(',')
 		values = [ int(x) for x in values ]
 		manip.sendAngles(values)
+		#XXX これをファイル経由にする
 	else:
 		print "GET ERROR"
 

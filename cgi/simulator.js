@@ -149,5 +149,8 @@ function drawRobot()
 function run()
 {
 	program = document.getElementById("program").value;
+	program = '( function loop(){requestAnimationFrame( loop );'
+			+ program + '} )();'
+
 	eval(program);
 }

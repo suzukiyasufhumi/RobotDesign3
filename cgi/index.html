@@ -102,13 +102,11 @@
 	<div style="float:left">
 		<h1>シミュレータ</h1>
 		<textarea rows="12" cols="40" id="program">
-( function loop(){
-    requestAnimationFrame( loop );
-    angles[0] += 0.1;
-    angles[1] += 0.1;
-} )();</textarea>
+angles[0] += 0.1;
+angles[1] += 0.1;
+</textarea>
 		<button type="button" id="run" onclick="run()">RUN</button>
-		<button type="button" onclick="document.getElementById('program').innerHTML=''">CLEAR</button>
+		<button type="button" onclick="location.reload()">CLEAR</button>
 	</div>
 </body>
 	<div id="canvas"></div>
