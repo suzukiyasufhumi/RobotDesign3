@@ -12,7 +12,9 @@ function sendAngles()
 	var url = "/angles.py?angles="
 	var j = 0; //シミュレータの配列に角度を入れるためのカウンタ
 	for (i=1;i<=6;i++){
-		if(i==4)continue;
+		if(i==4)
+			continue;
+
 		angle = document.getElementById("J" + i).value;
 		angles[j] = angle;
 		j++;
@@ -60,8 +62,43 @@ function ev(val)
 	httpReq.send(null);
 }
 
+
+function run()
+{
+	seq = document.getElementById("sequence").value;
+	lns = seq.split("\n");
+
+
+	t = 0;
+	for(i=0;i<lns.length;i++){
+		as = lns[i].split(",");
+		if(as.length < 6)
+			continue;
+
+		setTimeout( function(a) { oneStep(a); }, t , as );
+
+		t += parseInt(as[5]);
+	}
+}
+
+function oneStep(as)
+{
+	for(k=0;k<5;k++){
+		angles[k] = as[k];
+	}
+
+	j=0;
+	for(k=1;k<=6;k++){
+		if(k==4)
+			continue;
+
+		document.getElementById("J" + k + "value").value = angles[j++];
+	}
+}
+
 function init()
 {
 	readAd();
 	drawRobot();
 }
+
