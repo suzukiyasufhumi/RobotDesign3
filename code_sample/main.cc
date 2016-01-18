@@ -16,9 +16,9 @@ int main(int argc, char const* argv[])
 {
 	for(int i=0;i<10;i++){
 		if(i%2){
-			sendAngles(45,45,45,45,45,1000.0);
+			sendAngles(45,45,45,45,45,3000.0);
 		}else{
-			sendAngles(0,0,0,0,0,1000.0);
+			sendAngles(0,0,0,0,0,3000.0);
 		}
 	}
 
