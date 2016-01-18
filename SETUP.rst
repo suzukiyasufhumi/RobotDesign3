@@ -43,6 +43,6 @@ makeします。リポジトリのクローンはホームで実行しましょ�
 	56591 /run/shm/adconv_values
 
 ロボット側の電源が立ち上がっていないと、/tmp/log中に以下のようなワーニングが出ます。
-この場合はロボットの電源を入れて再度/tmp/logを確認しましょう。
+この場合はロボットの電源を入れてRaspberry Piを再起動し、再度/tmp/logを確認しましょう。
 
 chmod: cannot access `/dev/ttyUSB0': No such file or directory
