@@ -27,7 +27,6 @@ PCを演習室のLANに接続します。DHCPを使って接続します。
 次にpingを打ってみましょう。
 
 .. code-block:: bash
-	:linenos:
 
 	$ ping <コントローラのIPアドレス>
 	PING 198.51.100.1 (198.51.100.1): 56 data bytes
