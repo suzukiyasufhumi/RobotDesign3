@@ -24,7 +24,6 @@ TA用です。
 makeします。リポジトリのクローンはホームで実行しましょう。
 
 .. code-block:: bash
-	:linenos:
 
 	pi@raspberrypi ~ $ git clone https://github.com/ryuichiueda/RobotDesign3.git
 	pi@raspberrypi ~ $ cd RobotDesign3/
