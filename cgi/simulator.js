@@ -1,5 +1,4 @@
-var angles = [0,0,0,0,0,0];
-var program = "";
+var angles = [0,0,0,0,0,0]; // 周期的にこの角度が読まれて描画される
 
 function drawRobot()
 {

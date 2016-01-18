@@ -68,7 +68,6 @@ function run()
 	seq = document.getElementById("sequence").value;
 	lns = seq.split("\n");
 
-
 	t = 0;
 	for(i=0;i<lns.length;i++){
 		as = lns[i].split(",");
@@ -76,7 +75,6 @@ function run()
 			continue;
 
 		setTimeout( function(a) { oneStep(a); }, t , as );
-
 		t += parseInt(as[5]);
 	}
 }
