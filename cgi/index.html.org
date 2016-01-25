@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>ロボットGUI</title>
+	<script src="three.min.js"></script>
+	<script src="simulator.js"></script>
+	<script src="main.js"></script>
+	<link rel="stylesheet" type="text/css" href="main.css"></link>
+</head>
+<body onload="init()">
+	<div>
+		<h1>ADコンバータ</h1>
+		<table>
+			<tr>
+				<th>CH</th>
+				<th>値</th>
+			</tr>
+			<tr>
+				<td>CH0</td>
+				<td id="ch0_value"></td>
+			</tr>
+			<tr>
+				<td>CH1</td>
+				<td id="ch1_value"></td>
+			</tr>
+		</table>
+		<h1>電磁弁</h1>
+		<button type="button" id="ev_on" onclick="ev(1)">ON</button>
+		<button type="button" id="ev_off" onclick="ev(0)">OFF</button>
+	</div>
+	<div>
+		<h1>マニピュレータ</h1>
+		<div>
+			<table>
+				<tr>
+					<th>関節</th>
+					<th>角度</th>
+					<td>
+						<button onclick="sendAngles()">送信</button>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						J1
+					</td>
+					<td>
+						<input type="range" id="J1" onchange="onChangeRange()" value="0" min="-150" max="150">
+					</td>
+					<td>
+						<input type="number" id="J1value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+					</td>
+				</tr>
+				<tr>
+					<td>
+						J2
+					</td>
+					<td>
+						<input type="range" id="J2" onchange="onChangeRange()" value="0" min="-150" max="150">
+					</td>
+					<td>
+						<input type="number" id="J2value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+					</td>
+				</tr>
+				<tr>
+					<td>
+						J3
+					</td>
+					<td>
+						<input type="range" id="J3" onchange="onChangeRange()" value="0" min="-150" max="150">
+					</td>
+					<td>
+						<input type="number" id="J3value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+					</td>
+				</tr>
+				<tr>
+					<td>
+						J5
+					</td>
+					<td>
+						<input type="range" id="J5" onchange="onChangeRange()" value="0" min="-150" max="150">
+					</td>
+					<td>
+						<input type="number" id="J5value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+					</td>
+				</tr>
+				<tr>
+					<td>
+						J6
+					</td>
+					<td>
+						<input type="range" id="J6" onchange="onChangeRange()" value="0" min="-150" max="150">
+					</td>
+					<td>
+						<input type="number" id="J6value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div id="angles_log" style="padding-left:30px;width:200px"></div>
+	<div>
+		<h1>プログラム</h1>
+		<form action="/up_and_run.bash" method="post" enctype="multipart/form-data" target="upload_frame">
+			<input type="file" name="code" />
+			<input type="submit" />
+		</form>
+		<iframe name="upload_frame" style="display:none;"></iframe>
+	</div>
+	<div>
+		<h1>シミュレータ</h1>
+関節角5個と時間をカンマ区切りで入力のこと。<br />
+		<textarea rows="12" cols="40" id="sequence">
+20,20,20,20,20,2000
+20,-20,20,20,20,2000
+20,20,20,-20,20,2000
+20,-20,20,80,20,2000
+20,20,20,20,20,2000
+20,-20,20,20,20,2000
+20,20,20,-20,20,2000
+20,-20,20,80,20,2000
+20,20,20,20,20,2000
+20,-20,20,20,20,2000
+20,20,20,-20,20,2000
+20,-20,20,80,20,2000
+20,20,20,20,20,2000
+20,-20,20,20,20,2000
+20,20,20,-20,20,2000
+20,-20,20,80,20,2000
+</textarea>
+		<button type="button" id="run" onclick="run()">RUN</button>
+		<button type="button" onclick="location.reload()">CLEAR</button>
+	</div>
+</body>
+	<div id="canvas"></div>
+</html>

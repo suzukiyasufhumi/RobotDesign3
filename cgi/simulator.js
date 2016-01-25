@@ -3,12 +3,14 @@ var angles = [0,0,0,0,0,0]; // 周期的にこの角度が読まれて描画さ�
 function drawRobot()
 {
 	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight, 0.1, 2000);
+	//var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight, 0.1, 2000);
+	var camera = new THREE.PerspectiveCamera(75,1.0, 0.1, 2000);
 	camera.position.y = 500;
  
 	var renderer = new THREE.WebGLRenderer();
-	renderer.setSize(800,400);
-	document.body.appendChild(renderer.domElement);
+	renderer.setSize(400,400);
+	//document.body.appendChild(renderer.domElement);
+	document.getElementById('canvas').appendChild(renderer.domElement);
 
 	//////////////////
 	/* リンクの情報 */

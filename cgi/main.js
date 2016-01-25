@@ -32,8 +32,12 @@ function setAngles()
 	}
 }
 
+/*
 function sendAngles()
 {
+	if(window.location.href.substr(0,4) == "file")
+		return;
+
 	var httpReq = new XMLHttpRequest();
 	httpReq.onreadystatechange = function(){
 		if(httpReq.readyState != 4 || httpReq.status != 200)
@@ -59,6 +63,7 @@ function sendAngles()
 	httpReq.open("GET",url,true);
 	httpReq.send(null);
 }
+*/
 
 function numToSlide(obj)
 {
@@ -68,6 +73,9 @@ function numToSlide(obj)
 }
 
 function readAd(){
+	if(window.location.href.substr(0,4) == "file")
+		return;
+
 	var httpReq = new XMLHttpRequest();
 	httpReq.onreadystatechange = function(){
 		if(httpReq.readyState != 4 || httpReq.status != 200)
@@ -85,6 +93,9 @@ function readAd(){
 
 function ev(val)
 {
+	if(window.location.href.substr(0,4) == "file")
+		return;
+
 	var httpReq = new XMLHttpRequest();
 	httpReq.onreadystatechange = function(){
 		if(httpReq.readyState != 4 || httpReq.status != 200)
