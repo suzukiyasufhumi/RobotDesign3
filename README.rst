@@ -34,5 +34,5 @@ Copyright (c) 2011-2016 Twitter, Inc.
 Released under the MIT license
 https://github.com/twbs/bootstrap/blob/master/LICENSE
 
-	サイト: http://getbootstrap.com/
+* サイト: http://getbootstrap.com/
 
