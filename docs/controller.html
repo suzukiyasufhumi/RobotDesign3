@@ -45,17 +45,6 @@
           <a class="navbar-brand" href="#">ロボット設計製作論3</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-		<!--
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-		-->
         </div>
       </div>
     </nav>
@@ -63,32 +52,54 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="menu">
-<!--
-          <ul class="nav nav-sidebar">
-	    <li><a href="./index.html">Dashboard </a></li>
-            <li class="active"><a href="./manipulator.html">Manipulator</a></li>
-            <li><a href="./controller.html">Controller</a></li>
-          </ul>
--->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">マニピュレータについて</h1>
+          <h1 class="page-header">コントローラ</h1>
 
-          <div class="row placeholders">
+          <div class="row">
+	      <div class="col-sm-12">
+		  <p>コントローラのRaspberry Piセットアップマニュアルです。
+		  基本的にTA用ですが、トラブルがあった、あるいは単に
+		  興味がある場合には読んでいただければと。</p>
+              </div>
           </div>
 
-          <h2 class="sub-header">注意</h2>
-          <div class="row placeholders">
+          <h2 class="sub-header">実習室のネットワーク環境のセットアップ</h2>
+          <div class="row">
 		<div class="col-sm-12">
-	  		<p>マニピュレータにはパワー設定がされており、通常50になっている。
-	  		最大100まで上げられるが危険なので50以下で使用すること。</p>
+			<p>外の窓が左側になるように立った時、左側、前側のマニピュレータから順に、[演習室のセグメント].1, [演習室のセグメント].2, ・・・ とつけていくことにします。</p>
 		</div>
           </div>
-          <h2 class="sub-header">トラブルシューティング</h2>
-          <h3 class="well">ピーピーとエラー音が出た</h3>
-          <p>エラーコードを覚えておいて自分でエラー内容を確認し、その項目に対する対処を考える。</p>
-          <h3 class="well">それでもエラー音が消えない場合</h3>
-          <p>一旦マニピュレータの電源を落としてやり直す。</p>
+          <h2 class="sub-header">Raspberry Piのセットアップ</h2>
+          <div class="row">
+		<div class="col-sm-12">
+			<p>以下のようにGitHubからリポジトリをダウンロードして、
+makeします。リポジトリのクローンはホームで実行します。</p>
+			<pre>
+pi@raspberrypi ~ $ git clone https://github.com/ryuichiueda/RobotDesign3.git
+pi@raspberrypi ~ $ cd RobotDesign3/
+pi@raspberrypi ~/RobotDesign3 $ sudo make
+...（ログはちゃんと見ましょう）
+insserv: warning: script 'K01robot_design_3.sh' missing LSB tags and overrides
+（↑このワーニングは無視でOK）
+pi@raspberrypi ~/RobotDesign3 $ sudo reboot
+（再度接続）
+#確認方法1（プロセスが立ち上がっているか調査）
+pi@raspberrypi ~ $ ps aux | grep robot | grep init
+root      2012  0.0  0.2   2752  2208 ?        S    19:47   0:00 /bin/bash -xv /etc/init.d/robotdesign3.sh start
+#確認方法2（センサの値のファイルについてiノード番号が変わっているか調査）
+pi@raspberrypi ~ $ ls -i /run/shm/adconv_values
+56585 /run/shm/adconv_values
+pi@raspberrypi ~ $ ls -i /run/shm/adconv_values
+56591 /run/shm/adconv_values
+			</pre>
+
+<p>ロボット側の電源が立ち上がっていないと、/tmp/log中に以下のようなワーニングが出ます。 この場合はロボットの電源を入れてRaspberry Piを再起動し、再度/tmp/logを確認しましょう。</p>
+			<code>
+chmod: cannot access `/dev/ttyUSB0': No such file or directory
+			</code>
+		</div>
+          </div>
         </div>
       </div>
     </div>
