@@ -76,9 +76,6 @@
 
     <div class="container">
       <div class="raw">
-        <div class="span12">
-          <h2 id="conpane">コントロールパネル</h2>
-	</div>
         <div class="span3.5">
           <h3>関節角操作</h3>
           <table>
@@ -112,11 +109,10 @@
   	      <td><input type="number" id="J6value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150"></td>
   	    </tr>
           </table>
-          <h3>電磁弁</h3>
+          <h3>電磁弁の操作</h3>
           <button type="button" class="btn btn-danger" id="ev_on" onclick="ev(1)">ON</button>
           <button type="button" class="btn btn-warning" id="ev_off" onclick="ev(0)">OFF</button>
-        </div>
-	<div class="span3">
+
           <h3>関節角の連続指定</h3>
 関節角5個と時間をカンマ区切りで入力のこと。<br />
           <textarea rows="6" cols="40" id="sequence">
@@ -140,50 +136,28 @@
           <br />
           <button type="button" class="btn btn-danger" id="run" onclick="run()">RUN</button>
           <button type="button" class="btn btn-primary" onclick="location.reload()">CLEAR</button>
-          <h3>ADコンバータ</h3>
-          <table>
-            <tr>
-              <th>CH</th>
-              <th>値</th>
-            </tr>
-            <tr>
-              <td>CH0</td>
-              <td id="ch0_value"></td>
-            </tr>
-            <tr>
-              <td>CH1</td>
-              <td id="ch1_value"></td>
-            </tr>
-          </table>
         </div>
 	<div class="span4.5">
-          <h3>シミュレータ</h3>
+          <h3>モニタ</h3>
 	  <p class="color:red">実機も動作するので注意</p>
+	  <p>Range sensor CH0: <span id="ch0_value"></span></p>
+	  <p>Range sensor CH1: <span id="ch1_value"></span></p>
 	  <div id="sim" style="width:430px">
             <div id="canvas"></div>
 	  </div>
 	</div>
+	<div class="span3">
+          <h3>プログラムの<br />アップロード</h3>
+          <form action="/up_and_run.bash" method="post" enctype="multipart/form-data" target="upload_frame">
+            <input type="file" name="code" />
+            <input class="btn btn-warning" type="submit" />
+          </form>
+          <iframe name="upload_frame" style="display:none;"></iframe>
+
+          <h3>ログ</h3>
+          <div id="angles_log" style="padding-left:30px;width:200px"></div>
+        </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="raw">
-        <div class="span12">
-          <h2 id="send_prog">プログラムの送信</h2>
-        </div>
-      </div>
-      <div class="span4">
-        <h3>プログラムのアップロード</h3>
-        <form action="/up_and_run.bash" method="post" enctype="multipart/form-data" target="upload_frame">
-            <input type="file" name="code" />
-            <input class="btn btn-warning" type="submit" />
-        </form>
-        <iframe name="upload_frame" style="display:none;"></iframe>
-      </div>
-
-      <div class="span4">
-        <h3>ログ</h3>
-        <div id="angles_log" style="padding-left:30px;width:200px"></div>
-        </div>
-      </div>
 </body>
