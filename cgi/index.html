@@ -46,8 +46,8 @@
           <a class="brand" href="#">RobotDesign3 ロボットコントロールパネル</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="#sim">シミュレータ</a></li>
-              <li><a href="#machine">実機の操作</a></li>
+              <li><a href="#conpane">ウェブコントロールパネル</a></li>
+              <li><a href="#send_prog">プログラムの送信</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -75,55 +75,51 @@
     <script src="./js/bootstrap-typeahead.js"></script>
 
     <div class="container">
-        <h2>シミュレータ</h2>
-        <p style="color:red">実機も動作するので注意</p>
-    </div>
-
-    <div id="sim" class="span6" style="width:430px">
-        <div id="canvas"></div>
-    </div>
-    <div class="span5">
-        <h3>関節角操作</h3>
-        <table>
+      <div class="raw">
+        <div class="span12">
+          <h2 id="conpane">コントロールパネル</h2>
+	</div>
+        <div class="span3.5">
+          <h3>関節角操作</h3>
+          <table>
             <tr>
-                <th>関節</th>
-                <th>角度</th>
-<!--
-                <td><button onclick="sendAngles()">送信</button></td>
--->
-            </tr>
-            <tr>
+              <th>関節</th>
+              <th>角度[deg]</th>
+  	    </tr>
+  	    <tr>
                 <td>J1</td>
-                <td><input type="range" id="J1" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
-                <td><input type="number" id="J1value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]</td>
-            </tr>
-            <tr>
+  	      <td><input type="range" id="J1" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
+  	      <td><input type="number" id="J1value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150"></td>
+  	    </tr>
+  	    <tr>
                 <td>J2</td>
-                <td><input type="range" id="J2" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
-                <td><input type="number" id="J2value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]</td>
-            </tr>
-            <tr>
+  	      <td><input type="range" id="J2" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
+  	      <td><input type="number" id="J2value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150"></td>
+  	    </tr>
+  	    <tr>
                 <td>J3</td>
-                <td><input type="range" id="J3" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
-                <td><input type="number" id="J3value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]</td>
-            </tr>
-            <tr>
+  	      <td><input type="range" id="J3" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
+  	      <td><input type="number" id="J3value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150"></td>
+  	    </tr>
+  	    <tr>
                 <td>J5</td>
-                <td><input type="range" id="J5" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
-                <td><input type="number" id="J5value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]</td>
-            </tr>
-            <tr>
-                <td>J6</td>
-                <td><input type="range" id="J6" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
-                <td><input type="number" id="J6value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150">[deg]</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="span5">
-        <h3>関節角の連続指定</h3>
+  	      <td><input type="range" id="J5" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
+  	      <td><input type="number" id="J5value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150"></td>
+  	    </tr>
+  	    <tr>
+  	      <td>J6</td>
+  	      <td><input type="range" id="J6" onchange="onChangeRange()" value="0" min="-150" max="150"></td>
+  	      <td><input type="number" id="J6value" class="anglebox" onchange="numToSlide(this)" value="0" min="-150" max="150"></td>
+  	    </tr>
+          </table>
+          <h3>電磁弁</h3>
+          <button type="button" class="btn btn-danger" id="ev_on" onclick="ev(1)">ON</button>
+          <button type="button" class="btn btn-warning" id="ev_off" onclick="ev(0)">OFF</button>
+        </div>
+	<div class="span3">
+          <h3>関節角の連続指定</h3>
 関節角5個と時間をカンマ区切りで入力のこと。<br />
-        <textarea rows="6" cols="40" id="sequence">
+          <textarea rows="6" cols="40" id="sequence">
 20,20,20,20,20,2000
 50,50,20,20,20,2000
 20,20,50,50,20,2000
@@ -141,53 +137,53 @@
 20,20,50,50,20,2000
 50,-50,20,80,20,2000
 </textarea>
-<br />
-        <button type="button" class="btn btn-danger" id="run" onclick="run()">RUN</button>
-        <button type="button" class="btn btn-primary" onclick="location.reload()">CLEAR</button>
+          <br />
+          <button type="button" class="btn btn-danger" id="run" onclick="run()">RUN</button>
+          <button type="button" class="btn btn-primary" onclick="location.reload()">CLEAR</button>
+          <h3>ADコンバータ</h3>
+          <table>
+            <tr>
+              <th>CH</th>
+              <th>値</th>
+            </tr>
+            <tr>
+              <td>CH0</td>
+              <td id="ch0_value"></td>
+            </tr>
+            <tr>
+              <td>CH1</td>
+              <td id="ch1_value"></td>
+            </tr>
+          </table>
+        </div>
+	<div class="span4.5">
+          <h3>シミュレータ</h3>
+	  <p class="color:red">実機も動作するので注意</p>
+	  <div id="sim" style="width:430px">
+            <div id="canvas"></div>
+	  </div>
+	</div>
+      </div>
     </div>
 
-    <div id="machine" style="clear:both"></div>
-    <hr />
-
-    <div class="container" style="width:2000px">
-        <h2>実機</h2>
-    </div>
-
-    <div class="span4">
+    <div class="container">
+      <div class="raw">
+        <div class="span12">
+          <h2 id="send_prog">プログラムの送信</h2>
+        </div>
+      </div>
+      <div class="span4">
         <h3>プログラムのアップロード</h3>
         <form action="/up_and_run.bash" method="post" enctype="multipart/form-data" target="upload_frame">
             <input type="file" name="code" />
             <input class="btn btn-warning" type="submit" />
         </form>
         <iframe name="upload_frame" style="display:none;"></iframe>
-    </div>
+      </div>
 
-    <div class="span4">
+      <div class="span4">
         <h3>ログ</h3>
         <div id="angles_log" style="padding-left:30px;width:200px"></div>
-    </div>
-
-    <div class="span4">
-        <h3>ADコンバータ</h3>
-        <table>
-            <tr>
-                <th>CH</th>
-                <th>値</th>
-            </tr>
-            <tr>
-                <td>CH0</td>
-                <td id="ch0_value"></td>
-            </tr>
-            <tr>
-                <td>CH1</td>
-                <td id="ch1_value"></td>
-            </tr>
-        </table>
-
-        <h3>電磁弁</h3>
-        <button type="button" class="btn btn-danger" id="ev_on" onclick="ev(1)">ON</button>
-        <button type="button" class="btn btn-warning" id="ev_off" onclick="ev(0)">OFF</button>
-    </div><!--/span-->
-
-	<div style="height:1000px">&nbsp;</div>
+        </div>
+      </div>
 </body>

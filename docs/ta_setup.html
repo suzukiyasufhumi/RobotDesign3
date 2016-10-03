@@ -54,22 +54,54 @@
         <div class="col-sm-3 col-md-2 sidebar" id="menu">
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">コントローラ（Raspberry Pi）操作マニュアル</h1>
+          <h1 class="page-header">コントローラ（Raspberry Pi）の設定（TA用）</h1>
 
           <div class="row">
 	      <div class="col-sm-12">
-		      <p>Raspberry Piにインストールされたコントローラの操作マニュアルです。</p>
+		  <p>コントローラのRaspberry Piセットアップマニュアルです。
+		  基本的にTA用ですが、トラブルがあった、あるいは単に
+		  興味がある場合には読んでいただければと。</p>
               </div>
           </div>
 
-          <h2 class="sub-header">ブラウザからコントローラへのアクセス</h2>
+          <h3 class="sub-header">実習室のネットワーク環境のセットアップ</h2>
           <div class="row">
 		<div class="col-sm-12">
-	  		<p>コントローラにIPアドレスが明記してあるので、自分のノートPCのブラウザから
+			<p>外の窓が左側になるように立った時、左側、前側のマニピュレータから順に、[演習室のセグメント].1, [演習室のセグメント].2, ・・・ とつけていくことにします。</p>
+		</div>
+          </div>
+          <h2 class="sub-header">Raspberry Piのセットアップ</h2>
+          <div class="row">
+		<div class="col-sm-12">
+          		<h3 class="sub-header">OSのセットアップ</h3>
+			<p>標準的な方法（NOOBS or イメージのdd）でインストールをお願いします。</p>
+
+          		<h3 class="sub-header">プログラムのインストール</h3>
+			<p>以下のようにGitHubからリポジトリをダウンロードして、
+makeします。リポジトリのクローンはホームで実行します。</p>
 			<pre>
-				http://&lt;IPアドレス&gt;
+pi@raspberrypi ~ $ git clone https://github.com/ryuichiueda/RobotDesign3.git
+pi@raspberrypi ~ $ cd RobotDesign3/
+pi@raspberrypi ~/RobotDesign3 $ sudo make
+...（ログはちゃんと見ましょう）
+insserv: warning: script 'K01robot_design_3.sh' missing LSB tags and overrides
+（↑このワーニングは無視でOK）
+pi@raspberrypi ~/RobotDesign3 $ sudo reboot
+（再度接続）
+#確認方法1（プロセスが立ち上がっているか調査）
+pi@raspberrypi ~ $ ps aux | grep robot | grep init
+root      2012  0.0  0.2   2752  2208 ?        S    19:47   0:00 /bin/bash -xv /etc/init.d/robotdesign3.sh start
+#確認方法2（センサの値のファイルについてiノード番号が変わっているか調査）
+pi@raspberrypi ~ $ ls -i /run/shm/adconv_values
+56585 /run/shm/adconv_values
+pi@raspberrypi ~ $ ls -i /run/shm/adconv_values
+56591 /run/shm/adconv_values
 			</pre>
-			で接続します。</p>
+
+<p>ロボット側の電源が立ち上がっていないと、/tmp/log中に以下のようなワーニングが出ます。 この場合はロボットの電源を入れてRaspberry Piを再起動し、再度/tmp/logを確認しましょう。</p>
+			<code>
+chmod: cannot access `/dev/ttyUSB0': No such file or directory
+			</code>
 		</div>
           </div>
         </div>
