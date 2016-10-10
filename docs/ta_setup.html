@@ -64,22 +64,84 @@
               </div>
           </div>
 
-          <h3 class="sub-header">実習室のネットワーク環境のセットアップ</h2>
+          <h2 class="sub-header">1. 実習室のネットワーク環境のセットアップ</h2>
           <div class="row">
 		<div class="col-sm-12">
-			<p>外の窓が左側になるように立った時、左側、前側のマニピュレータから順に、[演習室のセグメント].1, [演習室のセグメント].2, ・・・ とつけていくことにします。</p>
+			<p>外の窓が左側になるように立った時、左側、前側のマニピュレータから順に、[演習室のセグメント].1, [演習室のセグメント].2, ・・・ とつけていくことにします。また、実は隣のマニピュレータを操作していたということが起こるのが怖いので、IPアドレスはバラバラに振ってあります。</p>
+
+			<table class="table table-striped">
+				<tr>
+					<th>マニピュレータ</th>
+					<th>IPアドレス</th>
+				</tr>
+				<tr>
+					<td>最前列・窓側</td>
+					<td>10.232.169.2</td>
+				</tr>
+				<tr>
+					<td>最前列・中央</td>
+					<td>10.232.169.107</td>
+				</tr>
+				<tr>
+					<td>最前列・廊下側</td>
+					<td>10.232.169.213</td>
+				</tr>
+				<tr>
+					<td>真ん中の列・窓側</td>
+					<td>10.232.169.17</td>
+				</tr>
+				<tr>
+					<td>真ん中の列・中央窓側</td>
+					<td>10.232.169.119</td>
+				</tr>
+				<tr>
+					<td>真ん中の列・中央廊下</td>
+					<td>10.232.169.229</td>
+				</tr>
+				<tr>
+					<td>真ん中の列・廊下側</td>
+					<td>10.232.169.31</td>
+				</tr>
+				<tr>
+					<td>最後列・窓側</td>
+					<td>10.232.169.137</td>
+				</tr>
+				<tr>
+					<td>最後列・中央</td>
+					<td>10.232.169.241</td>
+				</tr>
+				<tr>
+					<td>最後列・窓側</td>
+					<td>10.232.169.43</td>
+				</tr>
+			</table>
 		</div>
           </div>
-          <h2 class="sub-header">Raspberry Piのセットアップ</h2>
+          <h2 class="sub-header">2. Raspberry Piのセットアップ</h2>
           <div class="row">
 		<div class="col-sm-12">
           		<h3 class="sub-header">OSのセットアップ</h3>
 			<p>標準的な方法（NOOBS or イメージのdd）でインストールをお願いします。</p>
 
+          		<h3 class="sub-header">SPIデバイスを使えるようにする</h3>
+			<pre>
+pi@raspberrypi ~ $ sudo raspi-config
+手動&gt;&gt; 9 Advanced Options を選択
+手動&gt;&gt; A6 SPI を選択
+手動&gt;&gt; Would you like the SPI interface to be enabled? ---&gt; Yesを選択
+手動&gt;&gt; OK -&gt; Finish と選択
+			</pre>
+
           		<h3 class="sub-header">プログラムのインストール</h3>
 			<p>以下のようにGitHubからリポジトリをダウンロードして、
 makeします。リポジトリのクローンはホームで実行します。</p>
 			<pre>
+pi@raspberrypi ~ $ sudo apt update
+pi@raspberrypi ~ $ sudo apt upgrade
+pi@raspberrypi ~ $ sudo apt install git
+pi@raspberrypi ~ $ sudo apt install rpi-update
+pi@raspberrypi ~ $ sudo apt install python-pip
+pi@raspberrypi ~ $ sudo apt install python-devel
 pi@raspberrypi ~ $ git clone https://github.com/ryuichiueda/RobotDesign3.git
 pi@raspberrypi ~ $ cd RobotDesign3/
 pi@raspberrypi ~/RobotDesign3 $ sudo make
