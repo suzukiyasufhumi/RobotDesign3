@@ -9,5 +9,4 @@ sudo chmod o-t /run/shm/
 sudo chmod 777 /dev/ttyUSB0
 
 ###アプリの起動###
-chmod a+x /home/pi/RobotDesign3/robot_io.py
-/home/pi/RobotDesign3/robot_io.py
+sudo python /home/pi/RobotDesign3/scripts/robot_io.py
