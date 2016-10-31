@@ -27,15 +27,16 @@ SOFTWARE.
 '''
 
 import time, os
-import wiringpi2 as wp
+import wiringpi as wp
 
 class RobotIO:
 	PIN_BASE = 100
-	EV_PIN = 21
+	EV_PIN = 17
 
 	def __init__(self):
-		wp.mcp3002Setup (RobotIO.PIN_BASE, 0)
+		wp.mcp3002Setup(RobotIO.PIN_BASE, 0)
 		wp.wiringPiSetupGpio()
+		wp.pinMode(RobotIO.EV_PIN, wp.GPIO.OUTPUT)
 
 	def read_da(self,ch):
 		return wp.analogRead(RobotIO.PIN_BASE+ch)
@@ -79,6 +80,7 @@ if __name__ == '__main__':
 	while True:
 		with open("/run/shm/adconv_values.tmp","w") as f:
 			ans = str(rio.read_da(0)) + " " + str(rio.read_da(1)) + "\n"
+			print ans
 			f.write(ans)
 		
 		os.rename("/run/shm/adconv_values.tmp","/run/shm/adconv_values")
@@ -86,7 +88,7 @@ if __name__ == '__main__':
 		try:
 			with open("/run/shm/ev_on_off","r") as f:
 				v = int(f.readline())
-				rio.write_io(v)
+				rio.write_ev(v)
 		except:
 			pass
 
