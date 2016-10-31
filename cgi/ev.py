@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-import sys,cgi
+import sys,cgi,os
 
 if __name__ == '__main__':
 	form = cgi.FieldStorage()
@@ -40,5 +40,6 @@ if __name__ == '__main__':
 		with open("/run/shm/ev_on_off","w") as f:
 			values = form["onoff"].value
 			f.write(values + '\n')
+			os.chmod("/run/shm/ev_on_off",0777)
 	except:
 		print "FILE ERROR"
