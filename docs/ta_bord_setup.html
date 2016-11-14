@@ -1,1 +1,190 @@
-aaa
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./favicon.ico">
+
+    <title>ロボット設計製作論3</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="./assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">ロボット設計製作論3</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="menu">
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">コントローラ（Raspberry Pi）の設定（TA用）</h1>
+
+          <div class="row">
+	      <div class="col-sm-12">
+		  <p>コントローラのRaspberry Piセットアップマニュアルです。
+		  基本的にTA用ですが、トラブルがあった、あるいは単に
+		  興味がある場合には読んでいただければと。</p>
+              </div>
+          </div>
+
+          <h2 class="sub-header">1. 実習室のネットワーク環境のセットアップ</h2>
+          <div class="row">
+		<div class="col-sm-12">
+			<p>外の窓が左側になるように立った時、左側、前側のマニピュレータから順に、[演習室のセグメント].1, [演習室のセグメント].2, ・・・ とつけていくことにします。また、実は隣のマニピュレータを操作していたということが起こるのが怖いので、IPアドレスはバラバラに振ってあります。</p>
+
+			<table class="table table-striped">
+				<tr>
+					<th>マニピュレータ</th>
+					<th>IPアドレス</th>
+				</tr>
+				<tr>
+					<td>最前列・窓側</td>
+					<td>10.232.169.2</td>
+				</tr>
+				<tr>
+					<td>最前列・中央</td>
+					<td>10.232.169.107</td>
+				</tr>
+				<tr>
+					<td>最前列・廊下側</td>
+					<td>10.232.169.213</td>
+				</tr>
+				<tr>
+					<td>真ん中の列・窓側</td>
+					<td>10.232.169.17</td>
+				</tr>
+				<tr>
+					<td>真ん中の列・中央窓側</td>
+					<td>10.232.169.119</td>
+				</tr>
+				<tr>
+					<td>真ん中の列・中央廊下</td>
+					<td>10.232.169.229</td>
+				</tr>
+				<tr>
+					<td>真ん中の列・廊下側</td>
+					<td>10.232.169.31</td>
+				</tr>
+				<tr>
+					<td>最後列・窓側</td>
+					<td>10.232.169.137</td>
+				</tr>
+				<tr>
+					<td>最後列・中央</td>
+					<td>10.232.169.241</td>
+				</tr>
+				<tr>
+					<td>最後列・窓側</td>
+					<td>10.232.169.43</td>
+				</tr>
+			</table>
+		</div>
+          </div>
+          <h2 class="sub-header">2. Raspberry Piのセットアップ</h2>
+          <div class="row">
+		<div class="col-sm-12">
+          		<h3 class="sub-header">OSのセットアップ</h3>
+			<p>標準的な方法（NOOBS or イメージのdd）でインストールをお願いします。</p>
+
+          		<h3 class="sub-header">SPIデバイスを使えるようにする</h3>
+			<pre>
+pi@raspberrypi ~ $ sudo raspi-config
+手動&gt;&gt; 9 Advanced Options を選択
+手動&gt;&gt; A5 SPI を選択
+手動&gt;&gt; Would you like the SPI interface to be enabled? ---&gt; Yesを選択
+手動&gt;&gt; OK -&gt; Finish と選択
+			</pre>
+
+          		<h3 class="sub-header">プログラムのインストール</h3>
+			<p>以下のようにGitHubからリポジトリをダウンロードして、
+makeします。リポジトリのクローンはホームで実行します。</p>
+			<pre>
+pi@raspberrypi ~ $ sudo apt update
+pi@raspberrypi ~ $ sudo apt upgrade
+pi@raspberrypi ~ $ sudo apt install git
+pi@raspberrypi ~ $ sudo apt install rpi-update
+pi@raspberrypi ~ $ sudo rpi-update
+pi@raspberrypi ~ $ sudo reboot
+...再起動...
+pi@raspberrypi ~ $ sudo apt install python-pip
+pi@raspberrypi ~ $ sudo apt install python-dev
+pi@raspberrypi ~ $ git clone https://github.com/ryuichiueda/RobotDesign3.git
+pi@raspberrypi ~ $ cd RobotDesign3/
+pi@raspberrypi ~/RobotDesign3 $ sudo make
+...（ログはちゃんと見ましょう）
+pi@raspberrypi ~/RobotDesign3 $ sudo reboot
+（再度接続）
+#動作確認方法1: センサの値のファイルについてiノード番号が変わっているか調査
+pi@raspberrypi ~ $ ls -i /run/shm/adconv_values
+56585 /run/shm/adconv_values
+pi@raspberrypi ~ $ ls -i /run/shm/adconv_values
+56591 /run/shm/adconv_values
+#動作確認方法2: ログを読む
+pi@raspberrypi ~ $ cat /tmp/log
+			</pre>
+
+<p>ロボット側の電源が立ち上がっていないと、/tmp/log中に以下のようなワーニングが出ます。 この場合はロボットの電源を入れてRaspberry Piを再起動し、再度/tmp/logを確認しましょう。</p>
+			<code>
+chmod: cannot access `/dev/ttyUSB0': No such file or directory
+			</code>
+		</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      $(function() {
+        $("#navbar").load("./navbar.html");
+        $("#menu").load("./menu.html");
+      });
+    </script>
+    <script>window.jQuery || document.write('<script src="./assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="./assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
